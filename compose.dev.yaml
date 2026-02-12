@@ -1,0 +1,27 @@
+services:
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+
+  php:
+    build: .
+    volumes:
+      - ./src:/var/www/html
+
+  mariadb:
+    image: mariadb:latest
+    env_file: .env
+    ports:
+      - "${PUERTO_DB}:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:
