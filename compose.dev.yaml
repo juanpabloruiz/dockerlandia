@@ -1,7 +1,7 @@
 services:
 
   nginx:
-    image: nginx:latest
+    image: nginx:1.29-alpine
     ports:
       - "8080:80"
     volumes:
@@ -16,10 +16,10 @@ services:
       - ./src:/var/www/html
 
   mariadb:
-    image: mariadb:latest
+    image: mariadb:11.8
     env_file: .env
     ports:
-      - "${PUERTO_DB}:3306"
+      - "3307:3306"
     volumes:
       - dbdata:/var/lib/mysql
 
